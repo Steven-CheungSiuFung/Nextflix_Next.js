@@ -1,0 +1,35 @@
+.container {
+  position: relative;
+  padding: 2rem 3rem;
+}
+
+.leftArrow {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 1rem;
+  top: 0;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.rightArrow {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 1rem;
+  top: 0;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.cardsWrapper {
+  position: relative;
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+  padding: 1rem 0;
+}
