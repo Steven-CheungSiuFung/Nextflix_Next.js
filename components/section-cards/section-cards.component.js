@@ -2,15 +2,15 @@ import { useRef } from "react";
 import PreviewCard from "../preview-card/preview-card.component";
 import classes from "./section-cards.module.css";
 
-const SectionCards = ({ title, videos }) => {
+const SectionCards = ({ title, size, videos = [] }) => {
   const cardsWrapperRef = useRef();
 
   const scrollLeft = () => {
-    cardsWrapperRef.current.scrollLeft += -500;
+    cardsWrapperRef.current.scrollLeft += -1000;
   };
 
   const scrollRight = () => {
-    cardsWrapperRef.current.scrollLeft += 500;
+    cardsWrapperRef.current.scrollLeft += 1000;
   };
   return (
     <section className={classes.container}>
@@ -28,7 +28,7 @@ const SectionCards = ({ title, videos }) => {
             key={index}
             id={index}
             imgUrl={movie.imgUrl}
-            size="large"
+            size={size}
           />
         ))}
       </div>
