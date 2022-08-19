@@ -1,21 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
+import { getMagicClient } from "../../lib/magic-client";
+
 import classes from "./nav-bar.module.css";
 
-const NavBar = ({ userName }) => {
+const NavBar = () => {
   const [isDropdown, setIsDropdown] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
   const router = useRouter();
 
   const toggleDropdown = () => {
     setIsDropdown(!isDropdown);
   };
 
-  const onLogoutHandler = () => {
-    router.push("/login");
+  const onLogoutHandler = async () => {
+    try {
+      const magic = await getMagicClient();
+      await magic.user.logout();
+      router.push("/login");
+    } catch (error) {
+      console.log("logout error", error);
+    }
   };
+
+  const getUserState = async () => {
+    try {
+      const magic = await getMagicClient();
+      const { email } = await magic.user.getMetadata();
+      if (email && email !== userEmail) {
+        setUserEmail(email);
+      }
+    } catch (error) {
+      console.log("get user data error", error);
+    }
+  };
+
+  useEffect(() => {
+    getUserState();
+  }, []);
+
   return (
     <div className={classes.container}>
       <Link href="/">
@@ -33,7 +59,7 @@ const NavBar = ({ userName }) => {
       </div>
       <div className={classes.setting}>
         <div className={classes.account} onClick={toggleDropdown}>
-          <p>{userName}</p>
+          <p>{userEmail}</p>
           {isDropdown ? (
             <Image
               src="/static/expand-less.svg"

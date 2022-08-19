@@ -96,3 +96,14 @@
 .btn:hover {
   background-color: var(--red10);
 }
+
+.loading {
+  width: 100%;
+  border-radius: 4px;
+  margin: 24px 0 12px;
+  padding: 16px;
+  background-color: var(--red10);
+  font-size: 16px;
+  text-align: center;
+  color: var(--white30);
+}

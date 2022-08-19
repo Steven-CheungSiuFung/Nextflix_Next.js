@@ -21,7 +21,7 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NavBar userName={"Steven@gmail.com"} />
+      <NavBar />
 
       <Banner
         title={"Interstellar Official Soundtrack"}

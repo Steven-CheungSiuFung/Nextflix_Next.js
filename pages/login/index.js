@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import cls from "classnames";
+
+import { getMagicClient } from "../../lib/magic-client";
 
 import classes from "./index.module.css";
 
@@ -11,15 +14,32 @@ const defaultFormFileds = {
 
 const LoginPage = () => {
   const [formFields, setFormFields] = useState(defaultFormFileds);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formFields);
+    setIsLoading(true);
+
+    try {
+      const magic = await getMagicClient();
+      const didToken = await magic.auth.loginWithMagicLink({
+        email: formFields.email,
+      });
+
+      if (didToken) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log("Error logging in", error);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,7 +71,11 @@ const LoginPage = () => {
               Email
             </label>
           </div>
-          <button className={classes.btn}>Sign In</button>
+          {isLoading ? (
+            <div className={classes.loading}>Loading...</div>
+          ) : (
+            <button className={classes.btn}>Sign In</button>
+          )}
         </form>
       </div>
     </div>
