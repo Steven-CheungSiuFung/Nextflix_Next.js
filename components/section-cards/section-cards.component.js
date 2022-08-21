@@ -27,6 +27,7 @@ const SectionCards = ({ title, size, videos = [] }) => {
           <PreviewCard
             key={index}
             id={index}
+            videoId={movie.id}
             imgUrl={movie.imgUrl}
             size={size}
           />

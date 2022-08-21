@@ -1,9 +1,12 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import classes from "./banner.module.css";
 
-const Banner = ({ title, subTitle, imgUrl }) => {
+const Banner = ({ videoId, title, subTitle, imgUrl }) => {
+  const router = useRouter();
+
   const handleOnClick = () => {
-    console.log("handle on click");
+    router.push(`/video/${videoId}`);
   };
   return (
     <div className={classes.container}>

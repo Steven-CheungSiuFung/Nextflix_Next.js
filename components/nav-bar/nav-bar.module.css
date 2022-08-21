@@ -14,6 +14,7 @@
 
 .logo {
   font-size: 1.8rem;
+  font-weight: 600;
   padding-bottom: 0.3rem;
   cursor: pointer;
   color: var(--red);
@@ -32,7 +33,7 @@
   align-items: center;
   gap: 2rem;
   list-style-type: none;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .item {
@@ -50,9 +51,13 @@
   cursor: pointer;
 }
 
-.account {
+.accountWrapper {
   display: flex;
   align-items: flex-end;
+}
+
+.account {
+  font-weight: 600;
 }
 
 .dropdown {
@@ -69,4 +74,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+.dropdownText {
+  font-weight: 600;
 }

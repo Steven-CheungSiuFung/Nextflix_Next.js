@@ -1,0 +1,102 @@
+.container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.modal {
+  position: absolute;
+
+  width: 800px;
+  max-height: 90vh;
+
+  left: 0;
+  right: 0;
+  margin: 0rem auto;
+
+  top: 5%;
+
+  background-color: var(--black);
+  border-radius: 10px;
+  border: 1px solid var(--shadow10);
+  outline: none;
+}
+
+@media screen and (max-width: 960px) {
+  .modal {
+    width: 100%;
+  }
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: var(--black40);
+}
+
+.player {
+  padding: 1rem;
+
+  border-radius: 10px;
+  box-shadow: 0 4px 5px 0px var(--shadow20);
+}
+
+.modalBody {
+  width: 100%;
+  display: flex;
+}
+
+.col1 {
+  max-height: 19rem;
+  overflow-y: hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  padding: 2rem 0 2rem 3rem;
+  gap: 1.2rem;
+}
+
+.col2 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 2rem 0 2rem 1rem;
+  gap: 2rem;
+}
+
+.publishedAt {
+  color: var(--green10);
+  font-weight: 600;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.description {
+}
+
+.infoTextWrapper {
+}
+
+.infoText {
+  color: var(--gray10);
+  font-weight: 600;
+}
+
+.channelTitle {
+  color: var(--white30);
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
+
+.viewCount {
+  color: var(--white30);
+  margin-left: 0.5rem;
+  font-weight: 600;
+}

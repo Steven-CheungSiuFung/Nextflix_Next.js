@@ -58,8 +58,8 @@ const NavBar = () => {
         </ul>
       </div>
       <div className={classes.setting}>
-        <div className={classes.account} onClick={toggleDropdown}>
-          <p>{userEmail}</p>
+        <div className={classes.accountWrapper} onClick={toggleDropdown}>
+          <p className={classes.account}> {userEmail}</p>
           {isDropdown ? (
             <Image
               src="/static/expand-less.svg"
@@ -78,7 +78,9 @@ const NavBar = () => {
         </div>
         {isDropdown && (
           <div className={classes.dropdown}>
-            <p onClick={onLogoutHandler}>Logout</p>
+            <p className={classes.dropdownText} onClick={onLogoutHandler}>
+              Logout
+            </p>
           </div>
         )}
       </div>

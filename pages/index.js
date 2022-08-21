@@ -24,8 +24,11 @@ export default function Home({
       <NavBar />
 
       <Banner
-        title={"Interstellar Official Soundtrack"}
-        subTitle={"The Complete Expanded Edition Soundtrack"}
+        videoId={"UDVtMYqUAyw"}
+        title={"Interstellar Main Theme"}
+        subTitle={
+          "Interstellar Main Theme - Extra Extented - Soundtrack by Hans Zimmer"
+        }
         imgUrl={`/static/interstellar.webp`}
       />
       <div className={classes.videos}>
@@ -42,7 +45,7 @@ export default function Home({
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const natureVideos = await getVideos("Nature");
   const travelVideos = await getVideos("Travel");
   const productivityVideos = await getVideos("Productivity");
@@ -55,5 +58,6 @@ export const getServerSideProps = async () => {
       productivityVideos,
       popularVideos,
     },
+    revalidate: 24 * 60 * 60,
   };
 };

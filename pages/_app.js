@@ -28,8 +28,6 @@ function MyApp({ Component, pageProps }) {
     router.events.on("routeChangeComplete", () => {
       setIsLoading(false);
     });
-
-    return router.events.off("routeChangeComplete");
   };
 
   useEffect(() => {
@@ -38,6 +36,9 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     setRouterEventListener();
+    return () => {
+      router.events.off("routeChangeComplete");
+    };
   }, []);
 
   return isLoading ? <Loading /> : <Component {...pageProps} />;
