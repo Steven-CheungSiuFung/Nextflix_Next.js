@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -8,13 +8,13 @@
   position: absolute;
 
   width: 800px;
-  max-height: 90vh;
+  min-height: 88vh;
 
   left: 0;
   right: 0;
   margin: 0rem auto;
 
-  top: 5%;
+  top: 10%;
 
   background-color: var(--black);
   border-radius: 10px;
@@ -50,7 +50,7 @@
 }
 
 .col1 {
-  max-height: 19rem;
+  max-height: 38vh;
   overflow-y: hidden;
   overflow-y: scroll;
   display: flex;

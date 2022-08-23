@@ -2,6 +2,8 @@ import Modal from "react-modal";
 import { useRouter } from "next/router";
 
 import classes from "./video.module.css";
+import NavBar from "../../components/nav-bar/nav-bar.component";
+
 import { getVideoDetials } from "../../lib/videos";
 
 const VideoPage = ({ videoData }) => {
@@ -15,6 +17,7 @@ const VideoPage = ({ videoData }) => {
   Modal.setAppElement("#__next");
   return (
     <div className={classes.container}>
+      <NavBar />
       <Modal
         isOpen={true}
         onRequestClose={() => router.back()}
