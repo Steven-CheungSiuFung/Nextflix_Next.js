@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import { magicAdmin } from "../../lib/magic-sever";
-import { getIsNewUser } from "../../lib/db/hasura";
+import { getIsNewUser, createNewUser } from "../../lib/db/hasura";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -33,6 +33,14 @@ const handler = async (req, res) => {
       );
 
       const isNewUser = await getIsNewUser(token, issuer);
+
+      if (isNewUser) {
+        const result = await createNewUser(token, metadata);
+        return res.status(201).json({ message: "user created", result });
+        // TODO: return token and save in client browser
+      } else {
+        // TODO: return token and save in client browser
+      }
 
       return res.status(200).json({ done: true, isNewUser });
     } catch (error) {
