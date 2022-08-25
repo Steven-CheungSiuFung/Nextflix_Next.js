@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 import { magicAdmin } from "../../lib/magic-sever";
 import { getIsNewUser, createNewUser } from "../../lib/db/hasura";
+import { setTokenCookie } from "../../lib/cookie";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -36,13 +37,12 @@ const handler = async (req, res) => {
 
       if (isNewUser) {
         const result = await createNewUser(token, metadata);
-        return res.status(201).json({ message: "user created", result });
-        // TODO: return token and save in client browser
+        const cookie = setTokenCookie(token, res);
+        return res.status(201).json({ message: "user created" });
       } else {
-        // TODO: return token and save in client browser
+        const cookie = setTokenCookie(token, res);
+        return res.status(200).json({ message: "user login" });
       }
-
-      return res.status(200).json({ done: true, isNewUser });
     } catch (error) {
       console.error("Login in error", error);
       res.status(500).json({ message: "Login failed" });
