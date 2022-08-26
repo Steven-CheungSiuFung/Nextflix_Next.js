@@ -20,18 +20,42 @@ const VideoPage = ({ videoData }) => {
 
   const descriptionArray = description.split("\n");
 
-  const onClickLike = () => {
+  const onClickLike = async () => {
     setLike(!like);
     if (like === false && like !== dislike) {
       setDislike(false);
     }
+    const response = await fetch("/api/stats/update", {
+      method: "POST",
+      body: JSON.stringify({
+        videoId: id,
+        favourited: !like ? 1 : null,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // const data = await response.json();
+    // console.log(data);
   };
 
-  const onClickDislike = () => {
+  const onClickDislike = async () => {
     setDislike(!dislike);
     if (dislike === false && dislike !== like) {
       setLike(false);
     }
+    const response = await fetch("/api/stats/update", {
+      method: "POST",
+      body: JSON.stringify({
+        videoId: id,
+        favourited: !dislike ? 0 : null,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // const data = await response.json();
+    // console.log(data);
   };
 
   Modal.setAppElement("#__next");

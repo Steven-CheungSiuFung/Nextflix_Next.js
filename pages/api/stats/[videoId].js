@@ -6,25 +6,33 @@ import {
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const token = req.cookies?.token;
+    try {
+      const token = req.cookies?.token;
 
-    if (!token) {
-      return res.status(403).json({ message: "forbidden" });
-    }
+      if (!token) {
+        return res.status(403).json({ message: "forbidden" });
+      }
 
-    const decodedToken = jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET);
+      const decodedToken = jwt.verify(
+        token,
+        process.env.NEXT_PUBLIC_JWT_SECRET
+      );
 
-    const { issuer } = decodedToken;
-    const { videoId } = req.query;
+      const { issuer } = decodedToken;
+      const { videoId } = req.query;
 
-    const response = await getStatsByUserIdAndVideoId(token, issuer, videoId);
+      const response = await getStatsByUserIdAndVideoId(token, issuer, videoId);
 
-    if (response.data.stats.length > 0) {
-      const statsData = response.data.stats[0];
-      return res.status(200).json({ favourited: statsData.favourited });
-    } else {
-      const response = await insertNewStats(token, issuer, videoId);
-      return res.status(201).json({ message: "done" });
+      if (response.data.stats.length > 0) {
+        const statsData = response.data.stats[0];
+        return res.status(200).json({ favourited: statsData.favourited });
+      } else {
+        const response = await insertNewStats(token, issuer, videoId);
+        return res.status(201).json({ message: "done" });
+      }
+    } catch (error) {
+      console.log("Error /api/stats", error);
+      return res.status(500).json({ message: "getStats Error" });
     }
   } else {
     return res.status(400).json({ message: "request invalid" });
