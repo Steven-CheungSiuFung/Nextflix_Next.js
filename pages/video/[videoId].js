@@ -5,8 +5,14 @@ import classes from "./video.module.css";
 import NavBar from "../../components/nav-bar/nav-bar.component";
 
 import { getVideoDetials } from "../../lib/videos";
+import DislikeIcon from "../../components/dislike-icon/dislike-icon.component";
+import { useEffect, useState } from "react";
+import LikeIcon from "../../components/like-icon/like-icon.component";
 
 const VideoPage = ({ videoData }) => {
+  const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(false);
+
   const router = useRouter();
 
   const { id, title, description, channelTitle, publishedAt, viewCount } =
@@ -14,7 +20,45 @@ const VideoPage = ({ videoData }) => {
 
   const descriptionArray = description.split("\n");
 
+  const onClickLike = () => {
+    setLike(!like);
+    if (like === false && like !== dislike) {
+      setDislike(false);
+    }
+  };
+
+  const onClickDislike = () => {
+    setDislike(!dislike);
+    if (dislike === false && dislike !== like) {
+      setLike(false);
+    }
+  };
+
   Modal.setAppElement("#__next");
+
+  const getStatsData = async () => {
+    const response = await fetch(`/api/stats/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      const { favourited } = data;
+      if (favourited !== null && favourited === 1) {
+        setLike(true);
+      } else if (favourited !== null && favourited === 0) {
+        setDislike(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getStatsData();
+  }, []);
+
   return (
     <div className={classes.container}>
       <NavBar />
@@ -35,6 +79,7 @@ const VideoPage = ({ videoData }) => {
           src={`https://www.youtube.com/embed/${id}?autoplay=0&fs=1&rel=0&modestbranding=1&origin=http://localhost:3000`}
           frameBorder="0"
         ></iframe>
+
         <div className={classes.modalBody}>
           <div className={classes.col1}>
             <p className={classes.publishedAt}>{publishedAt}</p>
@@ -46,6 +91,10 @@ const VideoPage = ({ videoData }) => {
             </div>
           </div>
           <div className={classes.col2}>
+            <div className={classes.likeWrapper}>
+              <LikeIcon onClickLike={onClickLike} selected={like} />
+              <DislikeIcon onClickDislike={onClickDislike} selected={dislike} />
+            </div>
             <p className={classes.infoTextWrapper}>
               <span className={classes.infoText}>Cast: </span>
               <span className={classes.channelTitle}>{channelTitle}</span>

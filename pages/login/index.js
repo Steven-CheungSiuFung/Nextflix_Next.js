@@ -33,8 +33,20 @@ const LoginPage = () => {
         email: formFields.email,
       });
 
-      if (didToken) {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const loginResponse = await response.json();
+
+      if (loginResponse.ok) {
         router.push("/");
+      } else {
+        console.log("login process not complete");
       }
     } catch (error) {
       console.log("Error logging in", error);

@@ -38,10 +38,10 @@ const handler = async (req, res) => {
       if (isNewUser) {
         const result = await createNewUser(token, metadata);
         const cookie = setTokenCookie(token, res);
-        return res.status(201).json({ message: "user created" });
+        return res.status(201).json({ ok: true, message: "user created" });
       } else {
         const cookie = setTokenCookie(token, res);
-        return res.status(200).json({ message: "user login" });
+        return res.status(200).json({ ok: true, message: "user login" });
       }
     } catch (error) {
       console.error("Login in error", error);
