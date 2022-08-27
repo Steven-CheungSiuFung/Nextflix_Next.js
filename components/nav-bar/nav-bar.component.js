@@ -55,6 +55,9 @@ const NavBar = () => {
           <Link href="/my-list">
             <li className={classes.item}>My List</li>
           </Link>
+          <Link href="/history">
+            <li className={classes.item}>History</li>
+          </Link>
         </ul>
       </div>
       <div className={classes.setting}>

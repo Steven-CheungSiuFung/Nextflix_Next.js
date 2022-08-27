@@ -8,7 +8,7 @@ import SectionCards from "../components/section-cards/section-cards.component";
 import { getVideos, getPopularVideos } from "../lib/videos";
 
 export default function Home({
-  natureVideos,
+  musicVideos,
   travelVideos,
   productivityVideos,
   popularVideos,
@@ -32,8 +32,8 @@ export default function Home({
         imgUrl={`/static/interstellar.webp`}
       />
       <div className={classes.videos}>
-        <SectionCards title="Nature" size="large" videos={natureVideos} />
-        <SectionCards title="Travel" size="small" videos={travelVideos} />
+        <SectionCards title="Travel" size="large" videos={travelVideos} />
+        <SectionCards title="Music" size="small" videos={musicVideos} />
         <SectionCards
           title="Productivity"
           size="medium"
@@ -46,14 +46,14 @@ export default function Home({
 }
 
 export const getStaticProps = async () => {
-  const natureVideos = await getVideos("Nature");
+  const musicVideos = await getVideos("Music");
   const travelVideos = await getVideos("Travel");
   const productivityVideos = await getVideos("Productivity");
   const popularVideos = await getPopularVideos();
 
   return {
     props: {
-      natureVideos,
+      musicVideos,
       travelVideos,
       productivityVideos,
       popularVideos,

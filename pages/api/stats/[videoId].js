@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { veriftToken } from "../../../lib/auth";
 import {
   getStatsByUserIdAndVideoId,
   insertNewStats,
@@ -7,18 +7,17 @@ import {
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
-      const token = req.cookies?.token;
+      const token = req.cookies.token;
 
       if (!token) {
-        return res.status(403).json({ message: "forbidden" });
+        return res.status(401).json({ message: "missing token" });
       }
 
-      const decodedToken = jwt.verify(
-        token,
-        process.env.NEXT_PUBLIC_JWT_SECRET
-      );
+      const issuer = veriftToken(token);
+      if (!issuer) {
+        return res.status(401).json({ message: "user invalid" });
+      }
 
-      const { issuer } = decodedToken;
       const { videoId } = req.query;
 
       const response = await getStatsByUserIdAndVideoId(token, issuer, videoId);

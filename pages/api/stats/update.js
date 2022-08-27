@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { veriftToken } from "../../../lib/auth";
 import { updateStats } from "../../../lib/db/hasura";
 
 const handler = async (req, res) => {
@@ -7,15 +7,13 @@ const handler = async (req, res) => {
       const token = req.cookies.token;
 
       if (!token) {
-        return res.status(403).json({ message: "forbidden" });
+        return res.status(401).json({ message: "missing token" });
       }
 
-      const decodedToken = jwt.verify(
-        token,
-        process.env.NEXT_PUBLIC_JWT_SECRET
-      );
-
-      const { issuer } = decodedToken;
+      const issuer = veriftToken(token);
+      if (!issuer) {
+        return res.status(401).json({ message: "user invalid" });
+      }
 
       const { videoId, favourited } = req.body;
 

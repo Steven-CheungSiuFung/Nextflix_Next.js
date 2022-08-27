@@ -17,7 +17,8 @@ function MyApp({ Component, pageProps }) {
       if (!isLoggedIn) {
         router.push("/login");
       } else {
-        router.push("/");
+        setIsLoading(false);
+        // router.push("/");
       }
     } catch (error) {
       console.log("get auth state error", error);
