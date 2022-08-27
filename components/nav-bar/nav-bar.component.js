@@ -18,9 +18,15 @@ const NavBar = () => {
 
   const onLogoutHandler = async () => {
     try {
-      const magic = await getMagicClient();
-      await magic.user.logout();
-      router.push("/login");
+      const response = await fetch("/api/logout", {
+        method: "POST",
+      });
+      const result = await response.json();
+      if (result.ok) {
+        router.push("/login");
+      } else {
+        console.log(result);
+      }
     } catch (error) {
       console.log("logout error", error);
     }

@@ -1,4 +1,4 @@
-import { veriftToken } from "../../lib/auth";
+import { verifyToken } from "../../lib/auth";
 import { getFavouritedVideoId } from "../../lib/db/hasura";
 
 import NavBar from "../../components/nav-bar/nav-bar.component";
@@ -27,7 +27,7 @@ export default MyListPage;
 export const getServerSideProps = async (context) => {
   const token = context.req.cookies.token;
 
-  const issuer = token ? veriftToken(token) : null;
+  const issuer = token ? verifyToken(token) : null;
 
   if (!issuer) {
     return {

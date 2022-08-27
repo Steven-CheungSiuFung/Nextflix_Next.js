@@ -1,4 +1,4 @@
-import { veriftToken } from "../../../lib/auth";
+import { verifyToken } from "../../../lib/auth";
 import { updateStats } from "../../../lib/db/hasura";
 
 const handler = async (req, res) => {
@@ -10,7 +10,7 @@ const handler = async (req, res) => {
         return res.status(401).json({ message: "missing token" });
       }
 
-      const issuer = veriftToken(token);
+      const issuer = verifyToken(token);
       if (!issuer) {
         return res.status(401).json({ message: "user invalid" });
       }
