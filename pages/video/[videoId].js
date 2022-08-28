@@ -35,8 +35,6 @@ const VideoPage = ({ videoData }) => {
         "Content-Type": "application/json",
       },
     });
-    // const data = await response.json();
-    // console.log(data);
   };
 
   const onClickDislike = async () => {
@@ -54,8 +52,6 @@ const VideoPage = ({ videoData }) => {
         "Content-Type": "application/json",
       },
     });
-    // const data = await response.json();
-    // console.log(data);
   };
 
   Modal.setAppElement("#__next");
