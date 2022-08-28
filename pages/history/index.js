@@ -23,14 +23,11 @@ export default HistoryPage;
 export const getServerSideProps = async (context) => {
   const token = context.req.cookies.token;
 
-  const issuer = token ? verifyToken(token) : null;
+  const issuer = token ? await verifyToken(token) : null;
 
   if (!issuer) {
     return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
+      props: {},
     };
   }
 

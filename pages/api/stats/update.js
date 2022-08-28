@@ -10,7 +10,7 @@ const handler = async (req, res) => {
         return res.status(401).json({ message: "missing token" });
       }
 
-      const issuer = verifyToken(token);
+      const issuer = await verifyToken(token);
       if (!issuer) {
         return res.status(401).json({ message: "user invalid" });
       }

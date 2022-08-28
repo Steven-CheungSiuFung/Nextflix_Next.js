@@ -6,7 +6,7 @@ import SectionCards from "../../components/section-cards/section-cards.component
 
 import classes from "./index.module.css";
 
-const MyListPage = ({ favouritedVideos }) => {
+const MyListPage = ({ favouritedVideos = [] }) => {
   return (
     <div className={classes.container}>
       <NavBar />
@@ -27,14 +27,11 @@ export default MyListPage;
 export const getServerSideProps = async (context) => {
   const token = context.req.cookies.token;
 
-  const issuer = token ? verifyToken(token) : null;
+  const issuer = token ? await verifyToken(token) : null;
 
   if (!issuer) {
     return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
+      props: {},
     };
   }
 
